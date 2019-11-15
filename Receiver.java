@@ -31,7 +31,7 @@ public class Receiver {
 		ObjectInputStream in;
 		try {
 			server = new ServerSocket(port);
-			System.out.println ("Server IP address: " + server.getInetAddress().getHostAddress() + ", port " + port);
+			System.out.println ("Server IP address: " + InetAddress.getLocalHost().getHostAddress() + ", port " + port);
 			Socket sock = server.accept();
 			in = new ObjectInputStream(sock.getInputStream());
 			Object data = in.readObject();
