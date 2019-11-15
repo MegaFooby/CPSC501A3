@@ -11,7 +11,7 @@ public class Receiver {
 		Object received = receive_object(port);
 		Document doc = Document.class.cast(received);
 		System.out.println("Document received");
-		Object obj = (ClassA)Deserializer.deserializer(doc);
+		Object obj = Deserializer.deserializer(doc);
 		
 		new Inspector().inspect(obj, true);
 		

@@ -46,11 +46,27 @@ public class Sender {
 		Scanner keyboard = new Scanner(System.in);
 		
 		System.out.println("Enter the name of the class to create");
-		Class<?> clazz;
-		Object obj;
+		Class<?> clazz = null;
+		Object obj = null;
 		try {
-			clazz = Class.forName(keyboard.next());
-			obj = clazz.getConstructor().newInstance();
+			String classname = keyboard.next();
+			List<Object> tmp;
+			switch(classname) {
+			case "ArrayList":
+				tmp = new ArrayList<Object>(10);
+				tmp.add(new ClassA());
+				obj = tmp;
+				return obj;
+			case "Vector":
+				tmp = new Vector<Object>(10);
+				tmp.add(new ClassA());
+				obj = tmp;
+				return obj;
+			default:
+				clazz = Class.forName(classname);
+				obj = clazz.getConstructor().newInstance();
+				break;
+			}
 		} catch(Exception e) {
 			System.out.println("Could not create object");
 			return create_object();

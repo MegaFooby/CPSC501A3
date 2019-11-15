@@ -56,7 +56,7 @@ public class Deserializer {
 				List objChildren = child.getChildren();
 				for(Object field_ : objChildren) {
 					Element field = (Element) field_;
-					Field pField = objClass.getDeclaredField(field.getAttribute("name").getValue());
+					Field pField = find_field(objClass, field.getAttribute("name").getValue());
 					pField.setAccessible(true);
 					Class fieldType = pField.getType();
 					if(fieldType == Character.TYPE) {
@@ -97,6 +97,17 @@ public class Deserializer {
 			System.exit(0);
 		}
 		return null;
+	}
+	
+	public static Field find_field(Class c, String name) throws NoSuchFieldException {
+		if(c == Object.class) throw new NoSuchFieldException();
+		Field f = null;
+		try {
+			f = c.getDeclaredField(name);
+		} catch(NoSuchFieldException e) {
+			return find_field(c.getSuperclass(), name);
+		}
+		return f;
 	}
 }
 

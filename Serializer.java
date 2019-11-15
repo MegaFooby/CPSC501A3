@@ -65,6 +65,7 @@ public class Serializer {
 		Class clazz = obj.getClass();
 		while(clazz != Object.class) {
 			for(Field f : clazz.getDeclaredFields()) {
+				if(Modifier.isFinal(f.getModifiers())) continue;
 				f.setAccessible(true);
 				Element field = new Element("field");
 				field.setAttribute("name", f.getName());
