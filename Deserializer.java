@@ -21,7 +21,6 @@ public class Deserializer {
 				int i = Integer.parseInt(child.getAttribute("id").getValue());
 				if(objClass.isArray()) {
 					obj[i] = Array.newInstance(objClass.getComponentType(), Integer.parseInt(child.getAttribute("length").getValue()));
-					System.out.println(child.getValue());
 					List these_children = child.getChildren();
 					for(int count = 0; count < these_children.size(); count++) {
 						Element this_child = (Element)these_children.get(count);
@@ -42,6 +41,8 @@ public class Deserializer {
 							Array.set(obj[i], count, Double.parseDouble(this_child.getValue()));
 						} else if(fieldType == Boolean.TYPE) {
 							Array.set(obj[i], count, Boolean.parseBoolean(this_child.getValue()));
+						} else if(fieldType == String.class) {
+							Array.set(obj[i], count, this_child.getValue());
 						} else {
 							//object not created yet
 							if(this_child.getValue().equals("null")) continue;
@@ -74,6 +75,8 @@ public class Deserializer {
 						pField.set(obj[i], Double.parseDouble(field.getValue()));
 					} else if(fieldType == Boolean.TYPE) {
 						pField.set(obj[i], Boolean.parseBoolean(field.getValue()));
+					} else if(fieldType == String.class) {
+						pField.set(obj[i], field.getValue());
 					} else {
 						//object not created yet
 						//System.out.println(child.getAttribute("id").getValue() + " " + pField.getName() + " " + field.getValue());

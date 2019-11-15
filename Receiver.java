@@ -13,8 +13,9 @@ public class Receiver {
 		System.out.println("Document received");
 		Object obj = (ClassA)Deserializer.deserializer(doc);
 		
-		Document sending = Serializer.serialize(obj);
+		new Inspector().inspect(obj, true);
 		
+		Document sending = Serializer.serialize(obj);
 		try{
 			XMLOutputter xmlOutput = new XMLOutputter();
             xmlOutput.setFormat(Format.getPrettyFormat());

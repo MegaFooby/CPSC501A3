@@ -3,6 +3,7 @@ public class ClassA {
 	public int a[] = new int[2];
 	public char b;
 	public ClassA c[] = new ClassA[2];
+	public String d = "Foo";
 	
 	public ClassA(int a, char b, ClassA c) {
 		this.a[0] = a;
