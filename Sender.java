@@ -65,7 +65,6 @@ public class Sender {
 			obj = clazz.getConstructor().newInstance();
 		} catch(ClassNotFoundException e) {
 			System.out.println("Could not find class");
-			//e.printStackTrace();
 			return create_object();
 		} catch(Exception e) {
 			System.out.println("Could not create object");

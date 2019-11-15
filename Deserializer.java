@@ -5,7 +5,7 @@ import java.lang.reflect.*;
 
 public class Deserializer {
 	
-	public static Object deserializer(Document doc) {
+	public static Object deserialize(Document doc) {
 		Vector<id_ref> unassigned = new Vector<id_ref>();
 		Vector<arr_ref> unassigned_array = new Vector<arr_ref>();
 		try {
