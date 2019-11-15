@@ -6,7 +6,10 @@ import org.jdom2.output.*;
 
 public class Receiver {
 	public static void main(String args[]) {
-		int port = 1234;
+		if(args.length != 1) {
+			System.out.println("Usage: java Receiver [port number]");
+		}
+		int port = Integer.parseInt(args[0]);
 		//byte data[] = receive(port);
 		Object received = receive_object(port);
 		Document doc = Document.class.cast(received);

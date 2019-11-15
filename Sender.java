@@ -12,6 +12,17 @@ public class Sender {
 		String hostname = "0.0.0.0";
 		int port = 1234;
 		
+		if(args.length == 2) {
+			hostname = args[0];
+			port = Integer.parseInt(args[1]);
+		} else {
+			Scanner keyboard = new Scanner(System.in);
+			System.out.println("Please enter the hostname");
+			hostname = keyboard.next();
+			System.out.println("Please enter the port number");
+			port = keyboard.nextInt();
+		}
+		
 		/*ClassA foo = new ClassA();
 		ClassA bar = new ClassA(2, 'b', foo);
 		foo.c[0][0] = bar;*/
@@ -50,25 +61,15 @@ public class Sender {
 		Object obj = null;
 		try {
 			String classname = keyboard.next();
-			List<Object> tmp;
-			switch(classname) {
-			case "ArrayList":
-				tmp = new ArrayList<Object>(10);
-				tmp.add(new ClassA());
-				obj = tmp;
-				return obj;
-			case "Vector":
-				tmp = new Vector<Object>(10);
-				tmp.add(new ClassA());
-				obj = tmp;
-				return obj;
-			default:
-				clazz = Class.forName(classname);
-				obj = clazz.getConstructor().newInstance();
-				break;
-			}
+			clazz = Class.forName(classname);
+			obj = clazz.getConstructor().newInstance();
+		} catch(ClassNotFoundException e) {
+			System.out.println("Could not find class");
+			//e.printStackTrace();
+			return create_object();
 		} catch(Exception e) {
 			System.out.println("Could not create object");
+			//e.printStackTrace();
 			return create_object();
 		}
 		objects.add(obj);
