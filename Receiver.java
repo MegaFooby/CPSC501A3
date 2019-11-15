@@ -2,6 +2,7 @@ import java.util.*;
 import java.net.*;
 import java.io.*;
 import org.jdom2.*;
+import org.jdom2.output.*;
 
 public class Receiver {
 	public static void main(String args[]) {
@@ -9,7 +10,16 @@ public class Receiver {
 		//byte data[] = receive(port);
 		Object received = receive_object(port);
 		Document doc = Document.class.cast(received);
-		Object obj = Deserializer.deserializer(doc);
+		System.out.println("Document received");
+		Object obj = (ClassA)Deserializer.deserializer(doc);
+		
+		Document sending = Serializer.serialize(obj);
+		
+		try{
+			XMLOutputter xmlOutput = new XMLOutputter();
+            xmlOutput.setFormat(Format.getPrettyFormat());
+            xmlOutput.output(sending, new FileWriter("file2.xml"));
+        }catch(Exception e){}
 	}
 	
 	public static Object receive_object(int port) {
