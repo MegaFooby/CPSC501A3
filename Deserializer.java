@@ -3,8 +3,16 @@ import org.jdom2.output.*;
 import java.util.*;
 import java.lang.reflect.*;
 
+/**
+ * Creates an object from a serialized document
+ */
 public class Deserializer {
 	
+	/**
+	 * Creates an object from a serialized document
+	 * @param doc	The document
+	 * @return	The deserialized object
+	 */
 	public static Object deserialize(Document doc) {
 		Vector<id_ref> unassigned = new Vector<id_ref>();
 		Vector<arr_ref> unassigned_array = new Vector<arr_ref>();
@@ -99,6 +107,14 @@ public class Deserializer {
 		return null;
 	}
 	
+	/**
+	 * Finds a field by name. Searches current and superclasses
+	 * 
+	 * @param c	The class
+	 * @param name	The name of the field
+	 * @return	The field
+	 * @exception	Throws if there is no field
+	 */
 	public static Field find_field(Class c, String name) throws NoSuchFieldException {
 		if(c == Object.class) throw new NoSuchFieldException();
 		Field f = null;
@@ -111,6 +127,9 @@ public class Deserializer {
 	}
 }
 
+/**
+ * Keeps track of unassigned references that need to be assigned
+ */
 class id_ref {
 	public int id;
 	public Field f;
@@ -122,6 +141,9 @@ class id_ref {
 	}
 }
 
+/**
+ * Keeps track of unassigned references in arrays that need to be assigned
+ */
 class arr_ref {
 	public int id;
 	public int place;

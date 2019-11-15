@@ -3,6 +3,9 @@ import org.jdom2.output.*;
 import java.util.*;
 import java.lang.reflect.*;
 
+/**
+ * Creates a serialized version of an object
+ */
 public class Serializer {
 	IdentityHashMap<Object, Integer> seen;
 	Vector<Boolean> checked;
@@ -95,6 +98,11 @@ public class Serializer {
 		doc.getRootElement().addContent(object);
 	}
 	
+	/**
+	 * Creates the serialized object
+	 * @param obj	The object to serialize
+	 * @return	The serialized document
+	 */
 	public static Document serialize(Object obj) {
 		Serializer ser = new Serializer(obj);
 		return ser.doc;

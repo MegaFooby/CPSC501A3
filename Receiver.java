@@ -4,7 +4,14 @@ import java.io.*;
 import org.jdom2.*;
 import org.jdom2.output.*;
 
+/**
+ * A server to receive and deserialize an object
+ */
 public class Receiver {
+	/**
+	 * Main
+	 * @param args	0 is the port to open
+	 */
 	public static void main(String args[]) {
 		if(args.length != 1) {
 			System.out.println("Usage: java Receiver [port number]");
@@ -26,6 +33,11 @@ public class Receiver {
         }catch(Exception e){}
 	}
 	
+	/**
+	 * Receives the object
+	 * @param port	The port to receive from
+	 * @return	The object received
+	 */
 	public static Object receive_object(int port) {
 		ServerSocket server = null;
 		ObjectInputStream in;
@@ -46,6 +58,11 @@ public class Receiver {
 		return null;
 	}
 	
+	/**
+	 * Receives data
+	 * @param port	The port to receive from
+	 * @return	The data received
+	 */
 	public static byte[] receive(int port) {
 		ServerSocket server = null;
 		DataInputStream in;

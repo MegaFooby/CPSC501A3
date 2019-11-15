@@ -5,9 +5,16 @@ import org.jdom2.*;
 import org.jdom2.output.*;
 import java.lang.reflect.*;
 
+/**
+ * A class to send a serialized object over a socket
+ */
 public class Sender {
 	public Vector<Object> objects = new Vector<Object>();
 	
+	/**
+	 * Main
+	 * @param args	0 is the hostname, 1 is the port number
+	 */
 	public static void main(String args[]) {
 		String hostname = "0.0.0.0";
 		int port = 1234;
@@ -42,6 +49,14 @@ public class Sender {
 		send_object(hostname, port, sending);
 	}
 	
+	/**
+	 * Finds a field by name. Searches current and superclasses
+	 * 
+	 * @param c	The class
+	 * @param name	The name of the field
+	 * @return	The field
+	 * @exception	Throws if there is no field
+	 */
 	public static Field find_field(Class c, String name) throws NoSuchFieldException {
 		if(c == Object.class) throw new NoSuchFieldException();
 		Field f = null;
@@ -53,6 +68,10 @@ public class Sender {
 		return f;
 	}
 	
+	/**
+	 * Shitty but functional UI to create an object
+	 * @return	The object
+	 */
 	public Object create_object() {
 		Scanner keyboard = new Scanner(System.in);
 		
@@ -76,6 +95,12 @@ public class Sender {
 		return obj;
 	}
 	
+	/**
+	 * Shitty but functional UI to create an object
+	 * @param clazz	the class type of the object
+	 * @param keyboard	The keyboard scanner
+	 * @return	The object
+	 */
 	public Object create_object(Class<?> clazz, Scanner keyboard) {
 		Object obj = null;
 		try {
@@ -217,6 +242,12 @@ public class Sender {
 		return obj;
 	}
 	
+	/**
+	 * Sends an object through a socket
+	 * @param ipaddress	The address to send it to
+	 * @param port	The port to send it to
+	 * @param obj	The object to send
+	 */
 	public static void send_object(String ipaddress, int port, Object obj) {
 		ObjectOutputStream out;
 		Socket sock = null;
@@ -239,6 +270,12 @@ public class Sender {
 		}
 	}
 	
+	/**
+	 * Sends data through a socket
+	 * @param ipaddress	The address to send it to
+	 * @param port	The port to send it to
+	 * @param data	The data to send
+	 */
 	public static void send(String ipaddress, int port, byte data[]) {
 		DataOutputStream out;
 		Socket sock = null;
