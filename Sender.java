@@ -31,6 +31,17 @@ public class Sender {
 		send_object(hostname, port, sending);
 	}
 	
+	public static Field find_field(Class c, String name) throws NoSuchFieldException {
+		if(c == Object.class) throw new NoSuchFieldException();
+		Field f = null;
+		try {
+			f = c.getDeclaredField(name);
+		} catch(NoSuchFieldException e) {
+			return find_field(c.getSuperclass(), name);
+		}
+		return f;
+	}
+	
 	public Object create_object() {
 		Scanner keyboard = new Scanner(System.in);
 		
@@ -63,7 +74,7 @@ public class Sender {
 			}
 			Field f = null;
 			try {
-				f = clazz.getDeclaredField(input);
+				f = find_field(clazz, input);
 				f.setAccessible(true);
 			} catch(NoSuchFieldException e) {
 				System.out.println("Cannot find field \"" + input + "\"");
@@ -204,7 +215,7 @@ public class Sender {
 			}
 			Field f = null;
 			try {
-				f = clazz.getDeclaredField(input);
+				f = find_field(clazz, input);
 				f.setAccessible(true);
 			} catch(NoSuchFieldException e) {
 				System.out.println("Cannot find field \"" + input + "\"");
@@ -328,7 +339,12 @@ public class Sender {
 			out.close();
 			sock.close();
 		}
-		catch (Exception e) {
+		catch(ConnectException e) {
+			//e.printStackTrace();
+			System.out.println("Failed to connet to server");
+			System.exit(0);
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 			System.exit(0);
 		}
